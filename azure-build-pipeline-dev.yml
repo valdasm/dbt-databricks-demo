@@ -12,6 +12,7 @@ stages:
         versionSpec: '3.6'
     - script:
         pip install dbt
+        pip install dbt-spark
       displayName: Install dbt
     - bash: dbt deps --profiles-dir $DBT_PROFILES_DIR
       displayName: DBT Dependencies
