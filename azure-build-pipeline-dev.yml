@@ -1,0 +1,19 @@
+stages:
+- stage: ${{ parameters.name }}
+  displayName: Deployment to ${{ parameters.name }}
+  jobs:
+  - job: Deploy_${{ parameters.name }}
+    displayName: Deploy job to ${{ parameters.name }}
+    variables:
+    - group: ${{ parameters.connectionVariables }}
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.6'
+    - script:
+        pip install dbt
+      displayName: Install dbt
+    - bash: dbt deps --profiles-dir $DBT_PROFILES_DIR
+      displayName: DBT Dependencies
+      env:
+        DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
