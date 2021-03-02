@@ -26,11 +26,14 @@ steps:
     mkdir ~/.dbt
     cp $(SettingProfile.secureFilePath) ~/.dbt/profiles.yml
   displayName: Installing Profile for Databricks
-    
+
+- script: pip install pipenv
+  displayName: 'Making sure pipenv is installed'
+
 - script: |
-    pip install dbt --user
-    pip install dbt-spark --user
-    pip install dbt-spark[PyHive] --user
+    pipenv install dbt 
+    pipenv install dbt-spark 
+    pipenv install dbt-spark[PyHive] 
     export PATH=$PATH:/home/vsts_azpcontainer/.local/bin
     dbt compile
     dbt test
