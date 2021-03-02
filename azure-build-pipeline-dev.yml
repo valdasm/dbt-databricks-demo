@@ -28,12 +28,17 @@ steps:
   displayName: Installing Profile for Databricks
 
 - script: |
-    pip install pipenv
-    pipenv install dbt 
-    pipenv install dbt-spark 
-    pipenv install dbt-spark[PyHive] 
+    sudo apt-get install git libpq-dev python-dev python3-pip
+    sudo apt-get remove python-cffi
+    sudo pip install --upgrade cffi
+    pip install cryptography==1.7.2
+
+- script: |
+    pip install dbt 
+    pip install dbt-spark 
+    pip install dbt-spark[PyHive] 
     export PATH=$PATH:/home/vsts_azpcontainer/.local/bin
-    pipenv dbt compile
-    pipenv dbt test
-    pipenv dbt run
+    pip dbt compile
+    pip dbt test
+    pip dbt run
   displayName: 'Compile, Test, and Run'
