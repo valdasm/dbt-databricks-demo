@@ -35,8 +35,7 @@ steps:
 
 - script: |
     pip install dbt 
-    pip install dbt-spark 
-    pip install dbt-spark[PyHive] 
+    pip install "dbt-spark[PyHive]" 
     export PATH=$PATH:/home/vsts_azpcontainer/.local/bin
     pip dbt compile
     pip dbt test
