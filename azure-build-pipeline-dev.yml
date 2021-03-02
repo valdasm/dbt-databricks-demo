@@ -1,20 +1,37 @@
-stages:
-- stage: ${{ parameters.name }}
-  displayName: Deployment to ${{ parameters.name }}
-  jobs:
-  - job: Deploy_${{ parameters.name }}
-    displayName: Deploy job to ${{ parameters.name }}
-    variables:
-    - group: ${{ parameters.connectionVariables }}
-    steps:
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '3.6'
-    - script:
-        pip install dbt
-        pip install dbt-spark
-      displayName: Install dbt
-    - bash: dbt deps --profiles-dir $DBT_PROFILES_DIR
-      displayName: DBT Dependencies
-      env:
-        DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+container: 
+  image: python:3.7
+  options: -u root
+
+steps:
+
+- task: DownloadSecureFile@1
+  name: SettingProfile
+  displayName: 'Downloading Profile for Databricks'
+  inputs:
+    secureFile: 'profiles.yml'
+
+- script: |
+    echo Installing $(SettingProfile.secureFilePath) to the ~/.dbt...
+    mkdir ~/.dbt
+    cp $(SettingProfile.secureFilePath) ~/.dbt/profiles.yml
+  displayName: Installing Profile for Databricks
+    
+- script: |
+    pip install dbt --user
+    pip install dbt-spark --user
+    export PATH=$PATH:/home/vsts_azpcontainer/.local/bin
+    dbt compile
+    dbt test
+    dbt run
+  displayName: 'Compile, Test, and Run'
