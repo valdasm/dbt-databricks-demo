@@ -46,17 +46,16 @@ steps:
     dbt docs generate
   displayName: 'Compile, Test, and Run'
 
-# - checkout: self
-#   persistCredentials: true
 
 - script: |
-    git clone --branch target https://dev.azure.com/valdasops/DataPlatform/_git/azure-databricks-demo
+    
+    git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" clone --branch target https://dev.azure.com/valdasops/DataPlatform/_git/azure-databricks-demo
     cp -R target azure-databricks-demo/target
     cd azure-databricks-demo
     git config --global user.name "Valdas (Build Agent)"
     git config --global user.email "valdas@maksimavicius.eu"
     git add .
     git commit -m "DBT Target artifacts on $(Build.BuildNumber) build"
-    git push origin target
+    git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" push origin target
   displayName: Push target folder to Git
 
