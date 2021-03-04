@@ -46,8 +46,8 @@ steps:
     dbt docs generate
   displayName: 'Compile, Test, and Run'
 
-- checkout: self
-  persistCredentials: true
+# - checkout: self
+#   persistCredentials: true
 
 - script: |
     git clone --branch target https://dev.azure.com/valdasops/DataPlatform/_git/azure-databricks-demo
