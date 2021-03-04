@@ -11,7 +11,7 @@ pool:
 
 container: 
   image: python:3.7
-  options: -u root
+
 
 steps:
 
@@ -28,8 +28,7 @@ steps:
   displayName: Installing Profile for Databricks
 
 - script: |
-    su -
-    apt-get install sudo -y
+    apt-get install sudo
     sudo apt-get update
     sudo apt-get install libsasl2-dev
     sudo apt-get install git libpq-dev python-dev python3-pip 
