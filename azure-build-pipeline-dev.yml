@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'Ubuntu-16.04'
 
 container: 
   image: python:3.7
@@ -28,12 +28,13 @@ steps:
   displayName: Installing Profile for Databricks
 
 - script: |
-    apt-get update
-    apt-get install libsasl2-dev
-    apt-get install git libpq-dev python-dev python3-pip 
-    apt-get remove python-cffi
+    sudo apt-get update
+    sudo apt-get install libsasl2-dev
+    sudo apt-get install git libpq-dev python-dev python3-pip 
+    sudo apt-get remove python-cffi
     pip install --upgrade cffi
     pip install cryptography
+  displayName: Install prerequisit Linux packages
 
 - script: |
     pip install dbt 
