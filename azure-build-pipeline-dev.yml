@@ -28,11 +28,11 @@ steps:
   displayName: Installing Profile for Databricks
 
 - script: |
-    sudo apt-get update
-    sudo apt-get install libsasl2-dev
-    sudo apt-get install git libpq-dev python-dev python3-pip 
-    sudo apt-get remove python-cffi
-    sudo pip install --upgrade cffi
+    apt-get update
+    apt-get install libsasl2-dev
+    apt-get install git libpq-dev python-dev python3-pip 
+    apt-get remove python-cffi
+    pip install --upgrade cffi
     pip install cryptography
 
 - script: |
