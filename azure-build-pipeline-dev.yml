@@ -50,7 +50,8 @@ steps:
 - script: |
     
     git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" clone --branch target https://dev.azure.com/valdasops/DataPlatform/_git/azure-databricks-demo
-    cp -R target azure-databricks-demo/target
+    rm rm -r azure-databricks-demo/target/*
+    cp -R target azure-databricks-demo
     cd azure-databricks-demo
     git config --global user.name "Valdas (Build Agent)"
     git config --global user.email "valdas@maksimavicius.eu"
