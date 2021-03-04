@@ -7,11 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'Ubuntu-16.04'
-
-container: 
-  image: python:3.7
-
+  vmImage: 'Ubuntu-latest'
 
 steps:
 
@@ -21,6 +17,11 @@ steps:
   inputs:
     secureFile: 'profiles.yml'
 
+- task: UsePythonVersion@0
+  displayName: 'Use Python $(python.version)'
+  inputs:
+    versionSpec: '3.7.10'
+
 - script: |
     echo Installing $(SettingProfile.secureFilePath) to the ~/.dbt...
     mkdir ~/.dbt
@@ -28,7 +29,6 @@ steps:
   displayName: Installing Profile for Databricks
 
 - script: |
-    apt-get install sudo
     sudo apt-get update
     sudo apt-get install libsasl2-dev
     sudo apt-get install git libpq-dev python-dev python3-pip 
