@@ -42,6 +42,8 @@ steps:
     pip install "dbt-spark[PyHive]" 
     export PATH=$PATH:/home/vsts_azpcontainer/.local/bin
     dbt compile
+    dbt seed 
+    dbt test
     dbt run
     dbt docs generate
   displayName: 'Compile, Test, and Run'
