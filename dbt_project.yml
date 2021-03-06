@@ -7,7 +7,7 @@ version: '1.0.0'
 config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'azure-databricks-workspace-http'
+profile: 'azure-databricks-workspace'
 
 # These configurations specify where dbt should look for different types of files.
 # The `source-paths` config, for example, states that models in this project can be
@@ -32,7 +32,30 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  my_new_project:
-      # Applies to all files under models/example/
-      example:
-          materialized: view
+    my_new_project:
+        materialized: table
+        example:
+            materialized: view
+        staging:
+            materialized: view
+            tags: ["staging", "hourly"]
+
+
+seeds:
+    my_new_project:
+        +enabled: true
+        +quote_columns: true
+        +schema: seed
+        # raw_customers:
+        # # Override column types
+        #     +column_types:
+        #         id: bigint
+        #         first_name: string
+        #         last_name: string
+        #         email: string
+        raw_orders:
+            +column_types:
+                id: string
+                user_id: string
+                order_date: string
+                status: string
