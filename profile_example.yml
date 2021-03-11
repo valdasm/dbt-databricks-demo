@@ -1,0 +1,26 @@
+azure-databricks-workspace-http:
+  target: dev
+  outputs:
+    dev:
+      type: spark
+      method: http
+      host: xxx.azuredatabricks.net
+      organization: "xxx"    
+      port: 443                         
+      token: xxx
+      schema: default
+      cluster: xxx
+
+azure-databricks-workspace:
+  target: dev
+  outputs:
+    dev:
+      type: spark
+      method: odbc
+      driver: Simba Spark ODBC Driver 
+      host: xxx.azuredatabricks.net
+      organization: "xxx"    
+      port: 443              
+      token: xxx
+      schema: default
+      cluster: xxx
