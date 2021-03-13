@@ -43,8 +43,8 @@ steps:
     export PATH=$PATH:/home/vsts_azpcontainer/.local/bin
     dbt compile
     dbt seed 
-    dbt test
     dbt run
+    dbt test
     dbt docs generate
   displayName: 'Compile, Test, and Run'
 

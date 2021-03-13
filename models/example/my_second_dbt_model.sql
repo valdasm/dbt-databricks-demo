@@ -2,8 +2,7 @@
 -- Use the `ref` function to select from other models
 
 {{ config(
-    materialized='view',
-    location_root='/mnt/data_lake'
+    materialized='view'
     
 ) }}
 

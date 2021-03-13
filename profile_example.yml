@@ -8,7 +8,16 @@ azure-databricks-workspace-http:
       organization: "xxx"    
       port: 443                         
       token: xxx
-      schema: default
+      schema: dev_dbt_databricks
+      cluster: xxx
+    test:
+      type: spark
+      method: http
+      host: xxx.azuredatabricks.net
+      organization: "xxx"    
+      port: 443                         
+      token: xxx
+      schema: test_dbt_databricks
       cluster: xxx
 
 azure-databricks-workspace:
@@ -22,5 +31,5 @@ azure-databricks-workspace:
       organization: "xxx"    
       port: 443              
       token: xxx
-      schema: default
+      schema: dev_dbt_databricks
       cluster: xxx
